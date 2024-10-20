@@ -1,0 +1,22 @@
+public class ArrayAverage {
+    public static void main(String[] args) {
+        String[] arr = {"1", "2", "3","5","dfd"};
+        int sum = 0;
+        double average = 0.0;
+
+        try {
+            for (int i = 0; i < arr.length; i++) {
+                // Преобразуем строку в число
+                sum += Integer.parseInt(arr[i]);
+            }
+            average = (double) sum / arr.length;
+            System.out.println("Среднее арифметическое: " + average);
+        } catch (NumberFormatException e) {
+            System.out.println("Ошибка: элемент массива не является числом.");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Ошибка: выход за пределы массива.");
+        } finally {
+            System.out.println("Программа завершена.");
+        }
+    }
+}
