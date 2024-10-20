@@ -1,0 +1,29 @@
+class CustomAgeException extends Exception {
+    public CustomAgeException(String message) {
+        super(message);
+    }
+}
+
+// Основной класс программы
+public class AgeValidator {
+    public static void checkAge(int age) throws CustomAgeException {
+        if (age < 0 || age > 120) {
+            // Выбрасываем CustomAgeException с сообщением об ошибке
+            throw new CustomAgeException("Недопустимый возраст: " + age + ". Возраст должен быть от 0 до 120.");
+        } else {
+            System.out.println("Возраст " + age + " принят.");
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] testAges = {25, -5, 130, 45};
+        for (int age : testAges) {
+            try {
+                checkAge(age);
+            } catch (CustomAgeException e) {
+                // Обрабатываем выброшенное исключение
+                System.out.println("Ошибка: " + e.getMessage());
+            }
+        }
+    }
+}
