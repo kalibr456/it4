@@ -1,0 +1,13 @@
+public class FileCopy {
+    public static void main(String[] args) {
+        String sourceFile = "source.txt";  // Исходный файл
+        String destinationFile = "destination.txt";  // Файл назначения
+
+        try {
+            Files.copy(Paths.get(sourceFile), Paths.get(destinationFile));
+            System.out.println("Файл успешно скопирован.");
+        } catch (IOException e) {
+            System.out.println("Произошла ошибка: " + e.getMessage());
+        }
+    }
+}
