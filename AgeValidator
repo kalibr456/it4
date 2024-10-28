@@ -1,3 +1,8 @@
+import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
 class CustomAgeException extends Exception {
     public CustomAgeException(String message) {
         super(message);
@@ -6,6 +11,20 @@ class CustomAgeException extends Exception {
 
 // Основной класс программы
 public class AgeValidator {
+    private static final Logger logger = Logger.getLogger(AgeValidator.class.getName());
+
+    static {
+        try {
+            // Настройка логгера с обработчиком, который записывает в файл
+            FileHandler fileHandler = new FileHandler("exceptions.log", true); // true - для добавления в файл, а не перезаписи
+            fileHandler.setFormatter(new SimpleFormatter()); // Простой текстовый формат для записи
+            logger.addHandler(fileHandler);
+            logger.setUseParentHandlers(false); // Отключаем вывод в консоль
+        } catch (IOException e) {
+            System.out.println("Не удалось настроить логгер: " + e.getMessage());
+        }
+    }
+
     public static void checkAge(int age) throws CustomAgeException {
         if (age < 0 || age > 120) {
             // Выбрасываем CustomAgeException с сообщением об ошибке
@@ -21,8 +40,9 @@ public class AgeValidator {
             try {
                 checkAge(age);
             } catch (CustomAgeException e) {
-                // Обрабатываем выброшенное исключение
+                // Обрабатываем выброшенное исключение и логируем его в файл
                 System.out.println("Ошибка: " + e.getMessage());
+                logger.severe("Выброшено исключение: " + e.getMessage()); // Логируем информацию об исключении
             }
         }
     }
